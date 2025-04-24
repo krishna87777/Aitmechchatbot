@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Placement Assistant Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .float { animation: float 3s ease-in-out infinite; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen p-6">
+
+  <div class="relative w-full max-w-3xl bg-gradient-to-br from-black via-gray-900 to-black p-6 rounded-xl shadow-2xl">
+
+    <!-- Floating background icons -->
+    <i class="fas fa-cog text-red-600 text-4xl absolute top-4 left-6 opacity-20 float"></i>
+    <i class="fas fa-robot text-red-600 text-5xl absolute bottom-6 right-4 opacity-20 float"></i>
+
+    <h1 class="text-3xl font-bold mb-4 text-center text-red-500">🤖 Placement Assistant</h1>
+
+    <!-- Chatbox -->
+    <div id="chatBox" class="bg-gray-800 rounded-lg p-4 h-96 overflow-y-auto space-y-4 mb-4 shadow-inner"></div>
+
+    <!-- Input and send -->
+    <div class="flex">
+      <input id="msgInput" type="text" class="flex-1 p-3 rounded-l-lg bg-gray-700 text-white focus:outline-none" placeholder="Ask about placements...">
+      <button onclick="sendMsg()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-r-lg">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMsg() {
+      const input = document.getElementById('msgInput');
+      const chatBox = document.getElementById('chatBox');
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      // Add user message to chat
+      chatBox.innerHTML += `<div class='text-right'><b>You:</b> ${userMsg}</div>`;
+      input.value = '';
+
+      // Scroll down
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Get bot reply
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg })
+      });
+
+      const data = await res.json();
+
+      // Add bot message
+      chatBox.innerHTML += `<div class='text-left text-green-400'><b>Bot:</b> ${data.reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById('msgInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMsg();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="bg-gradient-to-r from-red-800 to-red-600 p-6 rounded-xl shadow-lg w-full max-w-md text-center">
+    <h1 class="text-3xl font-bold mb-4 text-white">📊 Placement Assistant Dashboard</h1>
+    <p class="text-lg mb-2">👥 <strong>Total Registrations:</strong> <span class="text-yellow-300">{{ user_count }}</span></p>
+    <p class="text-lg mb-4">🔐 <strong>Total Logins:</strong> <span class="text-green-300">{{ login_count }}</span></p>
+    <a href="/" class="mt-4 inline-block bg-black border-2 border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">Back to Home</a>
+  </div>
+</body>
+</html>
