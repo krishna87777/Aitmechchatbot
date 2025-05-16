@@ -47,7 +47,7 @@ AIT Placement Assistant is an interactive chatbot web application designed to he
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ait-placement-assistant.git
+   git clone https://github.com/krishna87777/Aitmechchatbot
    cd ait-placement-assistant
    ```
 
